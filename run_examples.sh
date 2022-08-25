@@ -52,7 +52,9 @@ else
 	EXAMPLES=${ARGS[*]}
 fi
 
-for EXAMPLE in ${EXAMPLES}; do
+echo "Examples to run are: "$EXAMPLES
+
+for EXAMPLE in ${EXAMPLES[@]}; do
 	mkdir -p ${AX3D_EX_RUNDIR}/${EXAMPLE##*/}
 	cp -r $EXAMPLE/input ${AX3D_EX_RUNDIR}/${EXAMPLE##*/}
 	cp ${AX3D_EX_BINDIR}/axisem3d ${AX3D_EX_RUNDIR}/${EXAMPLE##*/}
