@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Get out per-user params (or fail)
+. ${HOME}/axisem3d_examples_parameters.sh
+
 # Display help
 Help()
 {
@@ -49,16 +52,12 @@ else
 	EXAMPLES=${ARGS[*]}
 fi
 
-BINDIR=/home/n03/n03/andreww/AxiSEM-3D-test/build
-RUNDIR=/work/n03/n03/andreww/axisem3d-examples-test
-mkdir -p $RUNDIR
-
 for EXAMPLE in ${EXAMPLES}; do
-	mkdir -p $RUNDIR/${EXAMPLE##*/}
-	cp -r $EXAMPLE/input $RUNDIR/${EXAMPLE##*/}
-	cp $BINDIR/axisem3d $RUNDIR/${EXAMPLE##*/}
-	cp axisem3d_sub.sh $RUNDIR/${EXAMPLE##*/}
-	cd $RUNDIR/${EXAMPLE##*/}
+	mkdir -p ${AX3D_EX_RUNDIR}/${EXAMPLE##*/}
+	cp -r $EXAMPLE/input ${AX3D_EX_RUNDIR}/${EXAMPLE##*/}
+	cp ${AX3D_EX_BINDIR}/axisem3d ${AX3D_EX_RUNDIR}/${EXAMPLE##*/}
+	/bin/bash ./make_axisem3d_subfile.sh $EXAMPLE/jobparams.sh > ${AX3D_EX_RUNDIR}/${EXAMPLE##*/}/axisem3d_sub.sh
+	cd ${AX3D_EX_RUNDIR}/${EXAMPLE##*/}
 	if [ $dryrun != "true" ]; then
 		sbatch axisem3d_sub.sh
 	else

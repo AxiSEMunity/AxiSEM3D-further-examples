@@ -38,7 +38,12 @@ in the queue have run before running step 5.
 
 ## Adding an example
 
-1. Create a new directory inside `/examples`
+1. Create a new directory inside `/examples` to contain your example
+2. Place all AxiSEM3D input inide a directory inside the directory you have created called /input (e.g. ./examples/my_new_example/input)
+3. Create a file called 'job_params.sh' inside the example directory to specify the number of cores and so on.
+4. Add some information to this file!
+
+It should now be possible to run this example with existing machinary.
 
 
 

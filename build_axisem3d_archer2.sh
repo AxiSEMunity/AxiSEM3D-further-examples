@@ -1,9 +1,10 @@
 #!/bin/bash
 
-PRFX=/home/n03/n03/andreww/AxiSEM-3D-test
+# Get out per-user params (or fail)
+. ${HOME}/axisem3d_examples_parameters.sh
 
-mkdir -p ${PRFX}
-cd ${PRFX}
+mkdir -p ${AX3D_EX_BUILD_PRFX}
+cd ${AX3D_EX_BUILD_PRFX}
 
 module load PrgEnv-gnu
 module load cray-fftw/3.3.8.9
@@ -22,7 +23,7 @@ ln -s /work/y07/shared/libs/core/metis/5.1.0/GNU/9.3/bin ./metis/bin
 ln -s /work/y07/shared/libs/core/metis/5.1.0/GNU/9.3/include ./metis/include
 ln -s /work/y07/shared/libs/core/metis/5.1.0/GNU/9.3/lib/libmetis_gnu.a ./metis/lib/libmetis.a
 
-cd ${PRFX}
+cd ${AX3D_EX_BUILD_PRFX}
 
 git clone https://github.com/kuangdai/AxiSEM-3D.git AxiSEM3D
 git -C AxiSEM3D pull
@@ -37,9 +38,9 @@ rm -rf ./*
 cmake -Dcxx=CC \
   -Dflags="-std=c++17 -O3 -DNDEBUG -fPIC" \
   -Deigen=/work/y07/shared/libs/core/eigen/3.4.0/include \
-  -Dboost=${PRFX}/dependencies/boost_1_78_0 \
+  -Dboost=${AX3D_EX_BUILD_PRFX}/dependencies/boost_1_78_0 \
   -Dfftw=/opt/cray/pe/fftw/3.3.8.9/x86_rome \
-  -Dmetis=${PRFX}/dependencies/metis \
+  -Dmetis=${AX3D_EX_BUILD_PRFX}/dependencies/metis \
   -Dnetcdf=/opt/cray/pe/netcdf/4.7.4.3/GNU/9.1 \
   -Dhdf5=/opt/cray/pe/hdf5/1.12.0.3/GNU/9.1 \
   -Dpar_netcdf=false \
